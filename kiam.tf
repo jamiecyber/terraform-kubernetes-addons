@@ -5,7 +5,7 @@ locals {
       name                    = "kiam"
       namespace               = "kiam"
       chart                   = "kiam"
-      repository              = data.helm_repository.uswitch.metadata[0].name
+      repository              = data.helm_release.kiam.repository
       server_use_host_network = true
     },
     var.kiam

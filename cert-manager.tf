@@ -6,7 +6,7 @@ locals {
       name                 = "cert-manager"
       namespace            = "cert-manager"
       chart                = "cert-manager"
-      repository           = data.helm_repository.jetstack.metadata[0].name
+      repository           = data.helm_release.cert_manager.repository
       service_account_name = "cert-manager"
     },
     var.cert_manager

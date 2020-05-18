@@ -6,7 +6,7 @@ locals {
       name       = "kong"
       namespace  = "kong"
       chart      = "kong"
-      repository = data.helm_repository.kong.metadata[0].name
+      repository = data.helm_release.kong.repository
     },
     var.kong
   )

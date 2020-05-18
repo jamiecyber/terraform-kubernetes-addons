@@ -5,7 +5,7 @@ locals {
       name                    = "kiam"
       namespace               = "kiam"
       chart                   = "kiam"
-      repository              = data.helm_release.kiam.repository
+      repository           = data.helm_repository.kiam.metadata[0].name
       server_use_host_network = true
     },
     var.kiam
@@ -152,8 +152,6 @@ resource "kubernetes_namespace" "kiam" {
 }
 
 resource "helm_release" "kiam" {
-  name = "uswitch"
-  repository  = "https://uswitch.github.io/kiam-helm-charts/charts/"
   count                 = local.kiam["enabled"] ? 1 : 0
   chart                 = local.kiam["chart"]
   version               = local.kiam["chart_version"]

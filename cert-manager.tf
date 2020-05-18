@@ -6,7 +6,7 @@ locals {
       name                 = "cert-manager"
       namespace            = "cert-manager"
       chart                = "cert-manager"
-      repository           = data.helm_release.cert_manager.repository
+      repository           = data.helm_repository.jetstack.metadata[0].name
       service_account_name = "cert-manager"
     },
     var.cert_manager
@@ -140,9 +140,9 @@ resource "kubernetes_namespace" "cert_manager" {
 }
 
 resource "helm_release" "cert_manager" {
-  name = "jetstack"
-  repository  = "https://charts.jetstack.io"
   count                 = local.cert_manager["enabled"] ? 1 : 0
+  repository            = local.cert_manager["repository"]
+  name                  = local.cert_manager["name"]
   chart                 = local.cert_manager["chart"]
   version               = local.cert_manager["chart_version"]
   timeout               = local.cert_manager["timeout"]

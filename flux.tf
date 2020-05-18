@@ -6,7 +6,7 @@ locals {
       name                 = "flux"
       namespace            = "flux"
       chart                = "flux"
-      repository           = data.helm_release.flux.repository
+      repository           = data.helm_repository.flux.metadata[0].name
       service_account_name = "flux"
     },
     var.flux
@@ -131,8 +131,6 @@ resource "kubernetes_role_binding" "flux" {
 }
 
 resource "helm_release" "flux" {
-  name = "flux"
-  repository  = "https://charts.fluxcd.io"
   count                 = local.flux["enabled"] ? 1 : 0
   chart                 = local.flux["chart"]
   version               = local.flux["chart_version"]

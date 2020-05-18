@@ -13,8 +13,8 @@ data "helm_repository" "polarpoint" {
   url  = "https://polarpoint-io.github.io/helm-charts/"
 }
 
-data "helm_repository" "cert-manager" {
-  name = "cert-manager"
+data "helm_repository" "cert_manager" {
+  name = "cert_manager"
   url  = "https://charts.jetstack.io/"
 }
 data "helm_repository" "kiam" {
@@ -27,3 +27,12 @@ data "helm_repository" "flux" {
   url  = "https://charts.fluxcd.io/"
 }
 
+data "helm_repository" "keycloak" {
+  name = "keycloak"
+  url  = "https://codecentric.github.io/helm-charts/"
+}
+
+data "helm_repository" "kong" {
+  name = "kong"
+  url  = "https://charts.konghq.com"
+}

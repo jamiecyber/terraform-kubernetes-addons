@@ -153,6 +153,8 @@ resource "kubernetes_namespace" "kiam" {
 
 resource "helm_release" "kiam" {
   count                 = local.kiam["enabled"] ? 1 : 0
+  repository            = local.kiam["repository"]
+  name                  = local.kiam["name"]  
   chart                 = local.kiam["chart"]
   version               = local.kiam["chart_version"]
   timeout               = local.kiam["timeout"]

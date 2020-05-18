@@ -6,7 +6,7 @@ locals {
       name       = "kong"
       namespace  = "kong"
       chart      = "kong"
-      repository = data.helm_release.kong.repository
+      repository = data.helm_repository.kong.metadata[0].name
     },
     var.kong
   )
@@ -47,9 +47,9 @@ resource "kubernetes_namespace" "kong" {
 }
 
 resource "helm_release" "kong" {
-  name = "kong"
-  repository  = "https://charts.konghq.com"
   count                 = local.kong["enabled"] ? 1 : 0
+  repository            = local.kong["repository"]
+  name                  = local.kong["name"]   
   chart                 = local.kong["chart"]
   version               = local.kong["chart_version"]
   timeout               = local.kong["timeout"]

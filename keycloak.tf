@@ -5,7 +5,7 @@ locals {
       name              = "keycloak"
       namespace         = "keycloak"
       chart             = "keycloak"
-      repository        = data.helm_repository.keycloak.metadata[0].name        
+      repository           = data.helm_repository.keycloak.metadata[0].name    
       prometheus_plugin = true
     },
     var.keycloak
@@ -64,6 +64,8 @@ resource "kubernetes_namespace" "keycloak" {
 
 resource "helm_release" "keycloak" {
   count                 = local.keycloak["enabled"] ? 1 : 0
+  repository            = local.keycloak["repository"]
+  name                  = local.keycloak["name"]   
   chart                 = local.keycloak["chart"]
   version               = local.keycloak["chart_version"]
   timeout               = local.keycloak["timeout"]

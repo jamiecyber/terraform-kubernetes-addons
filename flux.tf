@@ -132,6 +132,8 @@ resource "kubernetes_role_binding" "flux" {
 
 resource "helm_release" "flux" {
   count                 = local.flux["enabled"] ? 1 : 0
+  repository            = local.flux["repository"]
+  name                  = local.flux["name"]    
   chart                 = local.flux["chart"]
   version               = local.flux["chart_version"]
   timeout               = local.flux["timeout"]

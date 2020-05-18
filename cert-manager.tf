@@ -35,11 +35,6 @@ VALUES
 
 }
 
-data "helm_repository" "jetstack" {
-  name = "jetstack"
-  url  = "https://charts.jetstack.io"
-}
-
 module "iam_assumable_role_cert_manager" {
   source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version                       = "~> v2.6.0"
@@ -145,9 +140,9 @@ resource "kubernetes_namespace" "cert_manager" {
 }
 
 resource "helm_release" "cert_manager" {
+  name = "jetstack"
+  repository  = "https://charts.jetstack.io"
   count                 = local.cert_manager["enabled"] ? 1 : 0
-  repository            = local.cert_manager["repository"]
-  name                  = local.cert_manager["name"]
   chart                 = local.cert_manager["chart"]
   version               = local.cert_manager["chart_version"]
   timeout               = local.cert_manager["timeout"]

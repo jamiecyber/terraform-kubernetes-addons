@@ -49,10 +49,6 @@ extraVolumes: |
 VALUES
 }
 
-data "helm_repository" "codecentric" {
-  name = "codecentric"
-  url  = "https://codecentric.github.io/helm-charts"
-}
 
 resource "kubernetes_namespace" "keycloak" {
   count = local.keycloak["enabled"] ? 1 : 0
@@ -67,9 +63,9 @@ resource "kubernetes_namespace" "keycloak" {
 }
 
 resource "helm_release" "keycloak" {
+  name = "codecentric"
+  repository  = "https://codecentric.github.io/helm-charts"
   count                 = local.keycloak["enabled"] ? 1 : 0
-  repository            = local.keycloak["repository"]
-  name                  = local.keycloak["name"]
   chart                 = local.keycloak["chart"]
   version               = local.keycloak["chart_version"]
   timeout               = local.keycloak["timeout"]

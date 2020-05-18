@@ -51,10 +51,6 @@ server:
 VALUES
 }
 
-data "helm_repository" "uswitch" {
-  name = "uswitch"
-  url  = "https://uswitch.github.io/kiam-helm-charts/charts/"
-}
 
 data "aws_iam_policy_document" "kiam" {
   statement {
@@ -156,9 +152,9 @@ resource "kubernetes_namespace" "kiam" {
 }
 
 resource "helm_release" "kiam" {
+  name = "uswitch"
+  repository  = "https://uswitch.github.io/kiam-helm-charts/charts/"
   count                 = local.kiam["enabled"] ? 1 : 0
-  repository            = local.kiam["repository"]
-  name                  = local.kiam["name"]
   chart                 = local.kiam["chart"]
   version               = local.kiam["chart_version"]
   timeout               = local.kiam["timeout"]

@@ -33,10 +33,6 @@ prometheus:
 VALUES
 }
 
-data "helm_repository" "flux" {
-  name = "flux"
-  url  = "https://charts.fluxcd.io"
-}
 
 module "iam_assumable_role_flux" {
   source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
@@ -135,9 +131,9 @@ resource "kubernetes_role_binding" "flux" {
 }
 
 resource "helm_release" "flux" {
+  name = "flux"
+  repository  = "https://charts.fluxcd.io"
   count                 = local.flux["enabled"] ? 1 : 0
-  repository            = local.flux["repository"]
-  name                  = local.flux["name"]
   chart                 = local.flux["chart"]
   version               = local.flux["chart_version"]
   timeout               = local.flux["timeout"]

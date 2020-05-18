@@ -10,5 +10,5 @@ data "helm_repository" "incubator" {
 
 data "helm_repository" "polarpoint" {
   name = "polarpoint"
-  url  = "https://polarpoint-io.github.io/kubernetes-charts-incubator"
+  url  = "https://polarpoint-io.github.io/helm-charts/"
 }

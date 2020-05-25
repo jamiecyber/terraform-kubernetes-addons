@@ -5,7 +5,7 @@ locals {
       name              = "keycloak"
       namespace         = "keycloak"
       chart             = "keycloak"
-      repository           = data.helm_repository.keycloak.metadata[0].name    
+      repository        = local.helm_repository_keycloak.name  
       prometheus_plugin = true
     },
     var.keycloak

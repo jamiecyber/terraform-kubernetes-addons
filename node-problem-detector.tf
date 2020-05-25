@@ -5,7 +5,7 @@ locals {
       name       = "node-problem-detector"
       namespace  = "node-problem-detector"
       chart      = "node-problem-detector"
-      repository = data.helm_repository.stable.metadata[0].name
+      repository = local.helm_repository_stable.name
     },
     var.npd
   )

@@ -6,7 +6,7 @@ locals {
       name       = "sealed-secrets"
       namespace  = "sealed-secrets"
       chart      = "sealed-secrets"
-      repository = data.helm_repository.stable.metadata[0].name
+      repository = local.helm_repository_stable.name
     },
     var.sealed_secrets
   )

@@ -5,7 +5,7 @@ locals {
       name                 = "cluster-autoscaler"
       namespace            = "cluster-autoscaler"
       chart                = "cluster-autoscaler"
-      repository           = data.helm_repository.stable.metadata[0].name
+      repository           = local.helm_repository_stable.name
       service_account_name = "cluster-autoscaler"
     },
     var.cluster_autoscaler

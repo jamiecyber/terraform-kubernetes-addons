@@ -24,4 +24,50 @@ locals {
     var.helm_defaults
   )
 
+// helm repositories
+
+helm_repository_stable =  {
+  name = "stable"
+  url  = "https://kubernetes-charts.storage.googleapis.com/"
+}
+
+helm_repository_incubator = {
+  name = "incubator"
+  url  = "https://kubernetes-charts-incubator.storage.googleapis.com/"
+}
+// for fluentd-cloudwatch
+helm_repository_polarpoint = {
+  name = "polarpoint"
+  url  = "https://polarpoint-io.github.io/helm-charts/"
+}
+
+helm_repository_cert_manager = {
+  name = "cert_manager"
+  url  = "https://charts.jetstack.io/"
+}
+helm_repository_kiam = {
+  name = "kiam"
+  url  = "https://uswitch.github.io/kiam-helm-charts/charts/"
+}
+
+helm_repository_flux = {
+  name = "flux"
+  url  = "https://charts.fluxcd.io/"
+}
+
+helm_repository_keycloak = {
+  name = "keycloak"
+  url  = "https://codecentric.github.io/helm-charts/"
+}
+
+helm_repository_kong = {
+  name = "kong"
+  url  = "https://charts.konghq.com"
+}
+
+helm_repository_bitnami = {
+  name = "bitnami"
+  url  = "https://charts.bitnami.com/bitnami"
+}
+
 }

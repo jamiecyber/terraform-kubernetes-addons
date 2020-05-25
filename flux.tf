@@ -6,7 +6,7 @@ locals {
       name                 = "flux"
       namespace            = "flux"
       chart                = "flux"
-      repository           = data.helm_repository.flux.metadata[0].name
+      repository           = local.helm_repository_flux.name
       service_account_name = "flux"
     },
     var.flux

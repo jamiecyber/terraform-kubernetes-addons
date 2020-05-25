@@ -6,7 +6,7 @@ locals {
       name                 = "fluentd-cloudwatch"
       namespace            = "fluentd-cloudwatch"
       chart                = "fluentd-cloudwatch"
-      repository           = data.helm_repository.polarpoint.metadata[0].name
+      repository           = local.helm_repository_polarpoint.name
       service_account_name = "fluentd-cloudwatch"
     },
     var.fluentd_cloudwatch

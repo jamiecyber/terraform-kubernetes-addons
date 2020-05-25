@@ -34,7 +34,7 @@ resource "kubernetes_namespace" "node_problem_detector" {
 
 resource "helm_release" "node_problem_detector" {
   count                 = local.npd["enabled"] ? 1 : 0
-  repository            = data.helm_repository.stable.metadata[0].name
+  repository            = local.npd["repository"]
   name                  = "node-problem-detector"
   chart                 = "node-problem-detector"
   version               = local.npd["chart_version"]

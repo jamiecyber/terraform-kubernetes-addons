@@ -158,7 +158,6 @@ resource "helm_release" "cert_manager" {
   replace               = local.cert_manager["replace"]
   reset_values          = local.cert_manager["reset_values"]
   reuse_values          = local.cert_manager["reuse_values"]
-  install_crds          = local.cert_manager["install_crds"]
   skip_crds             = local.cert_manager["skip_crds"]
   verify                = local.cert_manager["verify"]
   values = [

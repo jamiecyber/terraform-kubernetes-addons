@@ -158,6 +158,7 @@ resource "helm_release" "cert_manager" {
   replace               = local.cert_manager["replace"]
   reset_values          = local.cert_manager["reset_values"]
   reuse_values          = local.cert_manager["reuse_values"]
+  install_crds          = local.cert_manager["install_crds"]
   skip_crds             = local.cert_manager["skip_crds"]
   verify                = local.cert_manager["verify"]
   values = [
@@ -168,24 +169,8 @@ resource "helm_release" "cert_manager" {
 
   depends_on = [
     helm_release.kiam,
-    helm_release.prometheus_operator,
-    kubectl_manifest.cert_manager_crds
+    helm_release.prometheus_operator
   ]
-}
-
-data "http" "cert_manager_crds" {
-  count = local.cert_manager["enabled"] ? 1 : 0
-  url   = "https://raw.githubusercontent.com/jetstack/cert-manager/${local.cert_manager["version"]}/deploy/manifests/00-crds.yaml"
-}
-
-data "kubectl_file_documents" "cert_manager_crds" {
-  count   = local.cert_manager["enabled"] ? 1 : 0
-  content = data.http.cert_manager_crds[0].body
-}
-
-resource "kubectl_manifest" "cert_manager_crds" {
-  count     = local.cert_manager["enabled"] ? length(data.kubectl_file_documents.cert_manager_crds[0].documents) : 0
-  yaml_body = element(data.kubectl_file_documents.cert_manager_crds[0].documents, count.index)
 }
 
 data "kubectl_path_documents" "cert_manager_cluster_issuers" {

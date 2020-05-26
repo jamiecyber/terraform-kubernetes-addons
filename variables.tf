@@ -113,7 +113,7 @@ variable "istio_operator" {
 }
 
 variable "helm_defaults" {
-  description = "Customize default Helm behavior"
+  description = "Customize default Helm behaviour"
   type        = any
   default     = {}
 }

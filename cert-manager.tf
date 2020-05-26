@@ -19,7 +19,7 @@ global:
   podSecurityPolicy:
     enabled: true
     useAppArmor: false
-  priorityClassName: ${local.priority_class["create"] ? kubernetes_priority_class.kubernetes_addons[0].metadata[0].name : ""}
+  priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"] : ""}
 podAnnotations:
   iam.amazonaws.com/role: "${local.cert_manager["enabled"] && local.cert_manager["create_iam_resources_kiam"] ? aws_iam_role.eks-cert-manager-kiam[0].arn : ""}"
 serviceAccount:

@@ -29,7 +29,7 @@ extraVars:
   - "{ name: FLUENT_UID, value: '0' }"
 updateStrategy:
   type: RollingUpdate
-priorityClassName: ${local.priority_class_ds["create"] ? kubernetes_priority_class.kubernetes_addons_ds[0].metadata[0].name : ""}
+priorityClassName: ${local.priority_class_ds["create"] ? local.priority_class_ds["name"] : ""}
 VALUES
 }
 

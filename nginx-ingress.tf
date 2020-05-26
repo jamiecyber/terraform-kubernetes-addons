@@ -32,7 +32,7 @@ controller:
     enabled: true
   config:
     use-proxy-protocol: "true"
-  priorityClassName: ${local.priority_class_ds["create"] ? kubernetes_priority_class.kubernetes_addons_ds[0].metadata[0].name : ""}
+  priorityClassName: ${local.priority_class_ds["create"] ? local.priority_class_ds["name"] : ""}
 defaultBackend:
   replicaCount: 2
 podSecurityPolicy:
@@ -58,7 +58,7 @@ controller:
     enabled: true
   config:
     use-proxy-protocol: "false"
-  priorityClassName: ${local.priority_class_ds["create"] ? kubernetes_priority_class.kubernetes_addons_ds[0].metadata[0].name : ""}
+  priorityClassName: ${local.priority_class_ds["create"] ? local.priority_class_ds["name"] : ""}
 defaultBackend:
   replicaCount: 2
 podSecurityPolicy:
@@ -91,7 +91,7 @@ controller:
     use-proxy-protocol: "false"
     use-forwarded-headers: "true"
     proxy-real-ip-cidr: "0.0.0.0/0"
-  priorityClassName: ${local.priority_class_ds["create"] ? kubernetes_priority_class.kubernetes_addons_ds[0].metadata[0].name : ""}
+  priorityClassName: ${local.priority_class_ds["create"] ? local.priority_class_ds["name"] : ""}
 defaultBackend:
   replicaCount: 2
 podSecurityPolicy:

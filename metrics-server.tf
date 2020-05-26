@@ -18,7 +18,7 @@ args:
   - --kubelet-preferred-address-types=InternalIP,ExternalIP
 rbac:
   pspEnabled: true
-priorityClassName: ${local.priority_class["create"] ? kubernetes_priority_class.kubernetes_addons[0].metadata[0].name : ""}
+priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"] : ""}
 VALUES
 
 }

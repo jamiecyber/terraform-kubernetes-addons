@@ -46,13 +46,13 @@ grafana:
         gnetId: 3831
         datasource: Prometheus
 prometheus-node-exporter:
-  priorityClassName: ${local.priority_class_ds["create"] ? kubernetes_priority_class.kubernetes_addons_ds[0].metadata[0].name : ""}
+  priorityClassName: ${local.priority_class_ds["create"] ? local.priority_class_ds["name"] : ""}
 prometheus:
   prometheusSpec:
-    priorityClassName: ${local.priority_class["create"] ? kubernetes_priority_class.kubernetes_addons[0].metadata[0].name : ""}
+    priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"]: ""}
 alertmanager:
   alertmanagerSpec:
-    priorityClassName: ${local.priority_class["create"] ? kubernetes_priority_class.kubernetes_addons[0].metadata[0].name : ""}
+    priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"] : ""}
 VALUES
 }
 

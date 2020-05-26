@@ -26,7 +26,7 @@ agent:
   prometheus:
     servicemonitor:
       enabled: ${local.prometheus_operator["enabled"]}
-  priorityClassName: ${local.priority_class_ds["create"] ? kubernetes_priority_class.kubernetes_addons_ds[0].metadata[0].name : ""}
+  priorityClassName: ${local.priority_class_ds["create"] ? local.priority_class["name"] : ""}
 server:
   service:
     targetPort: 11443
@@ -47,7 +47,7 @@ server:
   prometheus:
     servicemonitor:
       enabled: ${local.prometheus_operator["enabled"]}
-  priorityClassName: ${local.priority_class["create"] ? kubernetes_priority_class.kubernetes_addons[0].metadata[0].name : ""}
+  priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"] : ""}
 VALUES
 }
 

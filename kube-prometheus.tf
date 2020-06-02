@@ -103,8 +103,24 @@ resource "helm_release" "prometheus_operator" {
     local.values_prometheus_operator,
     local.prometheus_operator["extra_values"]
   ]
-  namespace = kubernetes_namespace.prometheus_operator.*.metadata.0.name[count.index]
+  namespace =  join("",kubernetes_namespace.prometheus_operator.*.metadata.0.name)
 }
+
+//TODO add secrets
+data "kubectl_path_documents" "prometheus_thanos_storage" {
+  pattern = "./templates/prometheus-thanos-storage.yaml"
+  vars = {
+    acme_email = local.cert_manager["acme_email"]
+    aws_region = var.aws["region"]
+  }
+}
+
+resource "kubectl_manifest" "prometheus_thanos_storage" {
+  count      = (local.prometheus_operator["enabled"] ? 1 : 0) * (local.prometheus_operator["enable_prometheus_thanos_storage"] ? 1 : 0) * length(data.kubectl_path_documents.prometheus_thanos_storage.documents)
+  yaml_body  = element(data.kubectl_path_documents.prometheus_thanos_storage.documents, count.index)
+  depends_on = [helm_release.prometheus_operator]
+}
+
 
 resource "kubernetes_network_policy" "prometheus_operator_default_deny" {
   count = local.prometheus_operator["enabled"] && local.prometheus_operator["default_network_policy"] ? 1 : 0

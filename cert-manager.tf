@@ -164,7 +164,7 @@ resource "helm_release" "cert_manager" {
     local.values_cert_manager,
     local.cert_manager["extra_values"]
   ]
-  namespace = kubernetes_namespace.cert_manager.*.metadata.0.name[count.index]
+  namespace = join("",kubernetes_namespace.cert_manager.*.metadata.0.name)
 
   depends_on = [
     helm_release.kiam,

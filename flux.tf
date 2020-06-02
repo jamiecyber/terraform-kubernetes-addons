@@ -155,7 +155,7 @@ resource "helm_release" "flux" {
     local.values_flux,
     local.flux["extra_values"]
   ]
-  namespace = kubernetes_namespace.flux.*.metadata.0.name[count.index]
+  namespace = join("",kubernetes_namespace.flux.*.metadata.0.name)
 
   depends_on = [
     helm_release.kiam,

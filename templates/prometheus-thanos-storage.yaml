@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: thanos-storage-config
+type: generic
+stringData:
+  thanos.yaml: |-
+    type: s3
+    config:
+      bucket: 'pol-tf-thanos-store-${storage_env}-${aws_region}'
+      endpoint: thanos.${storage_env}.s3.polarpoint.eu
+      access_key: AWS_ACCESS_KEY_ID
+      secret_key: AWS_SECRET_ACCESS_KEY

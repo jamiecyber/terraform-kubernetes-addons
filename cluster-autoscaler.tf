@@ -167,7 +167,7 @@ resource "helm_release" "cluster_autoscaler" {
     local.values_cluster_autoscaler,
     local.cluster_autoscaler["extra_values"]
   ]
-  namespace = kubernetes_namespace.cluster_autoscaler.*.metadata.0.name[count.index]
+  namespace = join("",kubernetes_namespace.cluster_autoscaler.*.metadata.0.name)
 
   depends_on = [
     helm_release.kiam,

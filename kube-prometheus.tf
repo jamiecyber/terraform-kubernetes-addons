@@ -49,7 +49,7 @@ prometheus-node-exporter:
   priorityClassName: ${local.priority_class_ds["create"] ? local.priority_class_ds["name"] : ""}
 prometheus:
   prometheusSpec:
-    priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"]: ""}
+    priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"] : ""}
 alertmanager:
   alertmanagerSpec:
     priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"] : ""}
@@ -103,7 +103,7 @@ resource "helm_release" "prometheus_operator" {
     local.values_prometheus_operator,
     local.prometheus_operator["extra_values"]
   ]
-  namespace =  join("",kubernetes_namespace.prometheus_operator.*.metadata.0.name)
+  namespace = join("", kubernetes_namespace.prometheus_operator.*.metadata.0.name)
 }
 
 //TODO add secrets

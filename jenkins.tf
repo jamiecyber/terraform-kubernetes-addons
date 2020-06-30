@@ -3,7 +3,7 @@ locals {
     local.helm_defaults,
     {
       name       = "jenkins"
-      namespace  = "jenkins-operator"
+      namespace  = "jenkins"
       chart      = "jenkins"
       repository = local.helm_repository_stable.name
       create_ns  = false

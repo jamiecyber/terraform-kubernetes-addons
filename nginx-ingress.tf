@@ -137,7 +137,7 @@ resource "helm_release" "nginx_ingress" {
     local.nginx_ingress["use_nlb"] ? local.values_nginx_ingress_nlb : local.nginx_ingress["use_l7"] ? local.values_nginx_ingress_l7 : local.values_nginx_ingress_l4,
     local.nginx_ingress["extra_values"],
   ]
-  namespace = join("",kubernetes_namespace.nginx_ingress.*.metadata.0.name)
+  namespace = join("", kubernetes_namespace.nginx_ingress.*.metadata.0.name)
 
   depends_on = [
     helm_release.prometheus_operator

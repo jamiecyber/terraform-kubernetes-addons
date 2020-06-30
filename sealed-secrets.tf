@@ -16,7 +16,7 @@ rbac:
   pspEnabled: true
 image:
   tag: ${local.sealed_secrets["version"]}
-priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"]: ""}
+priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"] : ""}
 VALUES
 
 }

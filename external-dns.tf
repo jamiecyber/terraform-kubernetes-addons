@@ -148,7 +148,7 @@ resource "helm_release" "external_dns" {
     local.values_external_dns,
     local.external_dns["extra_values"]
   ]
-  namespace = kubernetes_namespace.external_dns.*.metadata.0.name[count.index]
+  namespace = join("", kubernetes_namespace.external_dns.*.metadata.0.name)
 
   depends_on = [
     helm_release.kiam,

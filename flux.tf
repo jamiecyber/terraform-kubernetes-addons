@@ -133,7 +133,7 @@ resource "kubernetes_role_binding" "flux" {
 resource "helm_release" "flux" {
   count                 = local.flux["enabled"] ? 1 : 0
   repository            = local.flux["repository"]
-  name                  = local.flux["name"]    
+  name                  = local.flux["name"]
   chart                 = local.flux["chart"]
   version               = local.flux["chart_version"]
   timeout               = local.flux["timeout"]
@@ -155,7 +155,7 @@ resource "helm_release" "flux" {
     local.values_flux,
     local.flux["extra_values"]
   ]
-  namespace = join("",kubernetes_namespace.flux.*.metadata.0.name)
+  namespace = join("", kubernetes_namespace.flux.*.metadata.0.name)
 
   depends_on = [
     helm_release.kiam,

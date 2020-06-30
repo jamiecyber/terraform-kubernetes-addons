@@ -49,7 +49,7 @@ resource "kubernetes_namespace" "kong" {
 resource "helm_release" "kong" {
   count                 = local.kong["enabled"] ? 1 : 0
   repository            = local.kong["repository"]
-  name                  = local.kong["name"]   
+  name                  = local.kong["name"]
   chart                 = local.kong["chart"]
   version               = local.kong["chart_version"]
   timeout               = local.kong["timeout"]

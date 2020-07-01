@@ -30,4 +30,3 @@ resource "kubectl_manifest" "istio_operator" {
     kubectl_manifest.istio_operator_crds
   ]
 }
-}

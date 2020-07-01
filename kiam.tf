@@ -2,11 +2,20 @@ locals {
   kiam = merge(
     local.helm_defaults,
     {
-      name                    = "kiam"
-      namespace               = "kiam"
-      chart                   = "kiam"
-      repository              = local.helm_repository_kiam.name
-      server_use_host_network = true
+      name                        = "kiam"
+      namespace                   = "kiam"
+      chart                       = "kiam"
+      repository                  = local.helm_repository_kiam.name
+      server_use_host_network     = true
+      create_iam_user             = true
+      create_iam_resources        = true
+      enabled                     = false
+      assume_role_policy_override = ""
+      chart_version               = "5.0.7"
+      version                     = "v3.5"
+      iam_policy_override         = ""
+      default_network_policy      = true
+      iam_user                    = ""
     },
     var.kiam
   )
@@ -26,7 +35,7 @@ agent:
   prometheus:
     servicemonitor:
       enabled: ${local.prometheus_operator["enabled"]}
-  priorityClassName: ${local.priority_class_ds["create"] ? local.priority_class["name"] : ""}
+  priorityClassName: ${local.priority_class_ds["create"] ? kubernetes_priority_class.kubernetes_addons_ds[0].metadata[0].name : ""}
 server:
   service:
     targetPort: 11443
@@ -39,7 +48,7 @@ server:
   sslCertHostPath: "/etc/pki/ca-trust/extracted/pem"
   extraEnv:
     - name: AWS_DEFAULT_REGION
-      value: ${var.aws["region"]}
+      value: ${data.aws_region.current.name}
     - name: AWS_ACCESS_KEY_ID
       value: ${local.kiam["enabled"] && local.kiam["create_iam_resources"] ? aws_iam_access_key.eks-kiam-user-key[0].id : ""}
     - name: AWS_SECRET_ACCESS_KEY
@@ -47,10 +56,9 @@ server:
   prometheus:
     servicemonitor:
       enabled: ${local.prometheus_operator["enabled"]}
-  priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"] : ""}
+  priorityClassName: ${local.priority_class["create"] ? kubernetes_priority_class.kubernetes_addons[0].metadata[0].name : ""}
 VALUES
 }
-
 
 data "aws_iam_policy_document" "kiam" {
   statement {
@@ -265,7 +273,7 @@ resource "kubernetes_network_policy" "kiam_allow_requests" {
 }
 
 resource "kubernetes_network_policy" "kiam_allow_monitoring" {
-  count = local.kiam["enabled"] && local.kiam["default_network_policy"] && var.prometheus_operator["enabled"] ? 1 : 0
+  count = local.kiam["enabled"] && local.kiam["default_network_policy"] && local.prometheus_operator["enabled"] ? 1 : 0
 
   metadata {
     name      = "${kubernetes_namespace.kiam.*.metadata.0.name[count.index]}-allow-monitoring"

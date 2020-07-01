@@ -106,6 +106,12 @@ variable "karma" {
   default     = {}
 }
 
+variable "jenkins_operator" {
+  description = "Customise Jenkins chart, see `jenkins.tf` for supported values"
+  type        = any
+  default     = {}
+}
+
 variable "istio_operator" {
   description = "Customize istio operator deployment, see `istio_operator.tf` for supported values"
   type        = any

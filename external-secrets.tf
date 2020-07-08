@@ -52,7 +52,7 @@ resource "helm_release" "external_secrets" {
   skip_crds             = local.external_secrets["skip_crds"]
   verify                = local.external_secrets["verify"]
   values = [
-    local.values_jexternal_secrets,
+    local.values_external_secrets,
     local.external_secrets["extra_values"]
   ]
   namespace = local.external_secrets["namespace"]

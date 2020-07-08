@@ -8,7 +8,7 @@ stringData:
   thanos.yaml: |-
     type: s3
     config:
-      bucket: 'thanos-store-${storage_env}-${aws_region}'
-      endpoint: thanos.${storage_env}.s3.polarpoint.eu
-      access_key: AWS_ACCESS_KEY_ID
-      secret_key: AWS_SECRET_ACCESS_KEY
+      bucket: thanos-store-${app}-${env}-${aws_region}
+      endpoint: thanos-store-${app}-${env}-${aws_region}
+      access_key: ${access_key}
+      secret_key: ${secret_key}

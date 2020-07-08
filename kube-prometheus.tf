@@ -53,6 +53,7 @@ prometheus:
 alertmanager:
   alertmanagerSpec:
     priorityClassName: ${local.priority_class["create"] ? local.priority_class["name"] : ""}
+  
 VALUES
 }
 
@@ -106,12 +107,16 @@ resource "helm_release" "prometheus_operator" {
   namespace = join("", kubernetes_namespace.prometheus_operator.*.metadata.0.name)
 }
 
-//TODO add secrets
 data "kubectl_path_documents" "prometheus_thanos_storage" {
   pattern = "./templates/prometheus-thanos-storage.yaml"
   vars = {
     acme_email = local.cert_manager["acme_email"]
     aws_region = var.aws["region"]
+    env        = local.prometheus_operator["env"]
+    app        = local.prometheus_operator["app"]
+    access_key = local.prometheus_operator["access_key"]
+    secret_key = local.prometheus_operator["secret_key"]
+
   }
 }
 

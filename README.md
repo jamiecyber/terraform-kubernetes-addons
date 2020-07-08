@@ -25,6 +25,7 @@ Provides various addons that are often used on Kubernetes with AWS
   * [cni-metrics-helper](https://docs.aws.amazon.com/eks/latest/userguide/cni-metrics-helper.html): Provides cloudwatch metrics for VPC CNI plugins.
   * [kong](https://konghq.com/kong): API Gateway ingress controller.
   * [keycloak](https://www.keycloak.org/) : Identity and access management
+  * [external-secrets](https://github.com/godaddy/kubernetes-external-secrets/) : Kubernetes External Secrets allows you to use external secret management systems
 
 ## Requirements
 
@@ -58,6 +59,7 @@ Some addons interface with AWS API, for example:
 * `virtual-kubelet`
 * `cni-metric-helper`
 * `flux`
+* `kubernetes-external-secrets`
 
 ## Terraform docs
 

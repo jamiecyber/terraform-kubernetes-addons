@@ -135,3 +135,10 @@ variable "priority_class_ds" {
   type        = any
   default     = {}
 }
+
+variable "external_secrets" {
+  description = "Customise external-secrets chart, see `external-secrets.tf` for supported values"
+  type        = any
+  default     = {}
+}
+
